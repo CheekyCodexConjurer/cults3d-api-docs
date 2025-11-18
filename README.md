@@ -1,6 +1,6 @@
 # Cults3D API Docs
 
-This folder keeps a compact, public reference for the [Cults3D GraphQL API](https://cults3d.com/api). Every note below comes straight from two sources:
+This folder keeps a compact, public reference for the [Cults3D GraphQL API](https://cults3d.com/en/api/keys). Every note below comes straight from two sources:
 
 1. The official GraphQL gist maintained by @sunny – <https://gist.github.com/sunny/07db54478ac030bd277c19cfe734648b>.
 2. The `#api-help` Discord channel.
