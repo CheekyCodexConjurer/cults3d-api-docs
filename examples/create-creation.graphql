@@ -1,0 +1,20 @@
+mutation CreateDesign($input: CreateCreationInput!) {
+  createCreation(
+    name: $input.name,
+    description: $input.description,
+    imageUrls: $input.imageUrls,
+    fileUrls: $input.fileUrls,
+    locale: $input.locale,
+    categoryId: $input.categoryId,
+    subCategoryIds: $input.subCategoryIds,
+    downloadPrice: $input.price,
+    currency: $input.currency,
+    licenseCode: $input.licenseCode,
+    tagNames: $input.tagNames,
+    metaTags: $input.metaTags,
+    madeWithAi: false
+  ) {
+    creation { id url(locale: $input.locale) }
+    errors
+  }
+}
