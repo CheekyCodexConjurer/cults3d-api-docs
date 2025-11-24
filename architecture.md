@@ -51,8 +51,9 @@ From multiple Discord threads (Mar/2025 and Oct/2025):
 - “Give plenty of waiting time between requests” when downloading files, and avoid concurrent floods even if your tooling can handle it.
 
 ## Asset Hosting Guidelines
-- `imageUrls` and `fileUrls` must point to HTTPS locations that Cults3D’s backend can reach publicly (e.g., S3/Cloudflare R2/CDN buckets).
-- Filenames are preserved as provided; ensure they include meaningful extensions (`.zip`, `.jpg`, `.png`) to avoid appearing as “unknown” in the dashboard (a complaint reported in Discord).
+- `imageUrls` and `fileUrls` must point to HTTPS locations that Cults3D's backend can reach publicly (e.g., S3/Cloudflare R2/CDN buckets).
+- Google Drive pode servir como host: compartilhe o arquivo como p�blico e use o link direto de download (`https://drive.usercontent.google.com/download?id=<FILE_ID>&export=download&filename=<nome.extensao>` ou `https://drive.google.com/uc?export=download&id=<FILE_ID>&filename=<nome.extensao>`).
+- Filenames are preserved as provided; ensure they include meaningful extensions (`.zip`, `.jpg`, `.png`) to avoid appearing as "unknown" in the dashboard (a complaint reported in Discord).
 - When attaching many assets, you can call `createIllustration`/`createBlueprint` multiple times. Space those calls by a few seconds if you are not batching to stay under the throttles.
 - To update assets without downtime, fetch the current snapshot, create the new files first, then remove the obsolete ones.
 

@@ -7,7 +7,7 @@ This folder keeps a compact, public reference for the [Cults3D GraphQL API](http
 
 No private SDKs, scraping tricks, or repository-specific helpers are required to use this documentation. Everything assumes you are calling `https://cults3d.com/graphql` directly.
 
-- Host assets using HTTPS links that end with the extension (see `examples/upload-hosting.md`). tmpfiles.org accepts ~200 MB por upload; transfer.sh aceita até 10 GB.
+- Host assets using HTTPS links that end with the extension (see `examples/upload-hosting.md`). Google Drive pode ser usado como host quando o link direto expõe o nome do arquivo.
 - Respeite as limitações de `fileUrls`/`imageUrls`: máximo 10 links por campo. Se precisar de mais arquivos, combine em ZIPs ou reutilize hosts alternativos.
 - Exemplo completo: `examples/create-creation.graphql` reproduz o payload mostrado em `Create a design.graphql`, já com `tagNames` e `metaTags`.
 
@@ -24,7 +24,7 @@ Each markdown file stays under ~180 lines and is written to be LLM-friendly: cle
 | `examples/graphql_queries.md` | Ready-to-run queries/mutations from the gist and Discord updates. |
 | `examples/python_client.md` | Minimal Python client showing Basic auth, error handling, and pagination. |
 | `examples/create-creation.graphql` | Payload pronto com `fileUrls`/`imageUrls` inline. |
-| `examples/upload-hosting.md` | Guia rápido para gerar links diretos (tmpfiles, transfer.sh, etc.). |
+| `examples/upload-hosting.md` | Guia rapido para gerar links diretos no Google Drive. |
 | `llm_ingest.md` | Tips to package these docs for copilots/agents without wasting tokens. |
 | `faq.md` | Fast answers curated from `#api-help`. |
 

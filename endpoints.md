@@ -49,7 +49,7 @@ mutation {
   }
 }
 ```
-> Hospede cada URL em HTTPS público. Veja `examples/upload-hosting.md` para hosts sugeridos e limite de 10 links por campo.
+> Hospede cada URL em HTTPS publico. Veja `examples/upload-hosting.md` para links diretos no Google Drive e limite de 10 links por campo.
 
 **Update a creation** (gist + Discord meta-tag announcement)
 ```graphql

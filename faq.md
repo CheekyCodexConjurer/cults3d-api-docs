@@ -36,6 +36,6 @@ Optional. You can provide them in `createCreation` or leave the arrays empty and
 Siga a checklist em [README.md#api-validation-checklist](README.md#api-validation-checklist): teste `{ __typename }`, execute `categories { id }`, rode uma `createCreation` de rascunho e registre os cabeçalhos `x-ratelimit-*`. O snippet [examples/python_client.md#validation-helper](examples/python_client.md#validation-helper) automatiza esses passos.
 
 ### Where should I host the ZIPs and renders used in `fileUrls`/`imageUrls`?
-Any HTTPS endpoint that exposes the filename (ending with `.zip`, `.png`, etc.) works. Discord frequently mentions tmpfiles.org (~200 MB per upload) and transfer.sh (até 10 GB). Sempre use links diretos e limite cada campo a 10 URLs. O passo a passo está em [examples/upload-hosting.md](examples/upload-hosting.md).
+Google Drive pode hospedar os ZIPs e renders, desde que o link direto exponha o nome e a extensao do arquivo. Qualquer endpoint HTTPS pode ser usado; sempre limite cada campo a 10 URLs. Veja [examples/upload-hosting.md](examples/upload-hosting.md) para gerar os links de download direto.
 
 More questions? Re-read the `#api-help` history or post in the channel—then update these docs so everyone shares the same answers.

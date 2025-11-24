@@ -1,12 +1,11 @@
-# Hosting file links for createCreation
+# Hosting file links for createCreation (Google Drive)
 
-1. Gerar o arquivo final (ZIP ou PNG) localmente.
-2. Escolher o host temporário:
-   - transfer.sh (grava até 10GB; link expira em 14 dias)
-   - tmpfiles.org (limite seguro ~200 MB por upload; expira em ~7 dias)
-3. Para tmpfiles, usar a API `POST https://tmpfiles.org/api/v1/upload` (multipart/form-data).
-4. O JSON de resposta contém `data.url` e `data.download_url`. Usar sempre o link direto `https://tmpfiles.org/dl/<id>/<arquivo.extensão>`.
-5. O link inserido em `fileUrls`/`imageUrls` DEVE terminar com a extensão (`.zip`, `.png`, etc.) para que os validadores aceitem o arquivo.
-6. Se o ZIP exceder o limite do tmpfiles, dividir em partes menores (`<nome>-Part1.zip`, `<nome>-Part2.zip`) e enviar cada parte separadamente.
-7. Preencher `fileUrls` com até 10 links de ZIPs e `imageUrls` com até 10 renders. Cada URL deve ser publicamente acessível.
-
+1. Gere o arquivo final (ZIP ou PNG) localmente.
+2. Envie os arquivos para uma pasta no Google Drive (via UI ou API).
+3. Marque cada arquivo como "qualquer pessoa com o link pode visualizar".
+4. Construa o link direto usando o `fileId` do Drive:
+   - `https://drive.usercontent.google.com/download?id=<FILE_ID>&export=download&confirm=t&filename=<nome.extensao>`
+   - Alternativa: `https://drive.google.com/uc?export=download&id=<FILE_ID>&filename=<nome.extensao>`
+5. Os links em `fileUrls`/`imageUrls` DEVEM expor a extensao (`.zip`, `.png`, etc.) para evitar nomes "Unknown" no dashboard.
+6. Cada campo aceita ate 10 URLs; combine renders ou ZIPs extras em menos links se precisar.
+7. Mantenha os arquivos publicos durante o consumo do upload pela API; depois ajuste permissoes conforme sua politica.
