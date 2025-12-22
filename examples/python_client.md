@@ -167,7 +167,7 @@ orders_query = """
       results {
         publicId
         createdAt
-        price { currency cents }
+        price { currency value }
         lines { downloadUrl }
       }
     }
@@ -203,7 +203,7 @@ printlists_query = """
 
 printlists = run_graphql(printlists_query)["myself"]["printlistsBatch"]["results"]
 for entry in printlists:
-    print(entry["name"], "→", [c["shortUrl"] for c in entry["creationsBatch"]["results"]])
+    print(entry["name"], "->", [c["shortUrl"] for c in entry["creationsBatch"]["results"]])
 ```
 
 ## Handling Errors

@@ -15,6 +15,7 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
   }
 }
 ```
+> Source: Discord msg 1341078782638821440.
 
 ## Latest Submissions After a Date
 ```graphql
@@ -26,7 +27,7 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
   ) {
     results {
       name(locale: EN)
-      price { cents }
+      price { value }
       shortUrl
       downloadsCount
       publishedAt
@@ -34,6 +35,7 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
   }
 }
 ```
+> Source: Discord msg 1339885721154097172.
 
 ## Downloads Between Dates
 ```graphql
@@ -51,6 +53,7 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
   }
 }
 ```
+> Source: Discord msg 1339885721154097172.
 
 ## Printlists & Embedded Designs
 ```graphql
@@ -70,6 +73,7 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
   }
 }
 ```
+> Source: Discord msg 1346469900566401065.
 
 ## Add Design to a Collection
 ```graphql
@@ -77,12 +81,13 @@ mutation {
   addCreationToPrintlist(creationId: "CREATION_ID", printlistId: "PRINTLIST_ID") {
     errors
     printlistItem {
-      creation { name url }
+      creation { name(locale: EN) url }
       printlist { name url }
     }
   }
 }
 ```
+> Source: Discord msg 1439933950192648252.
 
 ## Price Filters
 ```graphql
@@ -91,10 +96,11 @@ mutation {
     results { name(locale: EN) shortUrl }
   }
   paidOnly: creationsBatch(onlyPriced: true, limit: 2) {
-    results { name(locale: EN) shortUrl price { cents } }
+    results { name(locale: EN) shortUrl price { value } }
   }
 }
 ```
+> Source: Discord msg 1341723740572221492.
 
 ## Metadata & Meta Tags
 ```graphql
@@ -112,6 +118,7 @@ mutation {
   }
 }
 ```
+> Source: Discord msg 1434835512383766588.
 
 ## Orders + Download URLs
 ```graphql
@@ -121,7 +128,7 @@ mutation {
       results {
         publicId
         createdAt
-        price { currency cents }
+        price { currency value }
         lines { downloadUrl }
       }
     }
@@ -129,6 +136,7 @@ mutation {
 }
 ```
 > Download URLs must be fetched with a logged-in browser session (per Discord guidance). Automations should reuse session cookies or prompt the user.
+> Source: Discord msg 1372299248560767106, msg 1389915227767963692.
 
 ## Sales With Discounts
 ```graphql
@@ -140,15 +148,17 @@ mutation {
         income { value }
         discount { percentage startAt endAt }
         creation {
-          name
-          identifier
+          name(locale: EN)
           price { value }
         }
+        creationViewsCount
       }
     }
   }
 }
 ```
+> Discord Dec/2025: `creationViewsCount` in `salesBatch` is the view count at the moment of sale.
+> Source: Discord msg 1348948518307631155 (discount), Dec/2025 screenshot for `creationViewsCount`.
 
 ## Discounted Discoverability
 ```graphql
@@ -157,10 +167,10 @@ mutation {
     results {
       name(locale: EN)
       shortUrl
-      price(currency: EUR) { cents }
+      price(currency: EUR) { value }
       discount {
         percentage
-        originalPrice(currency: EUR) { cents }
+        originalPrice(currency: EUR) { value }
         startAt
         endAt
       }
@@ -168,6 +178,7 @@ mutation {
   }
 }
 ```
+> Source: Gist `Find discounted designs.graphql`.
 
 ## Manual Discount Creation
 ```graphql
@@ -178,14 +189,15 @@ mutation {
     discountEndAt: "2024-09-01T16:59:12+02:00"
   ) {
     discount {
-      creation { name price { cents } }
-      originalPrice { cents }
+      creation { name(locale: EN) price { value } }
+      originalPrice { value }
       percentage
     }
     errors
   }
 }
 ```
+> Source: Gist `Add a discount.graphql`.
 
 ## Search
 ```graphql
@@ -199,6 +211,20 @@ mutation {
   }
 }
 ```
+> Source: Gist `Search for a design.graphql`.
+
+## Pagination (Offset)
+```graphql
+{
+  creationsBatch(limit: 50, offset: 100) {
+    results {
+      name(locale: EN)
+      shortUrl
+    }
+  }
+}
+```
+> Source: Discord msg 1437160159154540574.
 
 ## User Snapshot
 ```graphql
@@ -207,6 +233,7 @@ mutation {
     shortUrl
     bio
     imageUrl
+    followersCount
     creationsCount
     creations(limit: 3, sort: BY_LIKES) {
       name(locale: EN)
@@ -216,6 +243,7 @@ mutation {
   }
 }
 ```
+> Source: Gist `Show a user.graphql` + Discord msg 1356293103581008093 (followers).
 
 ## Personal Likes
 ```graphql
@@ -230,6 +258,33 @@ mutation {
   }
 }
 ```
+> Source: Gist `Show your likes.graphql`.
+
+## My Designs + Stats (Uncached Views)
+```graphql
+{
+  myself {
+    user { nick imageUrl followersCount }
+    creationsBatch(limit: 10, offset: 0) {
+      total
+      results {
+        identifier
+        name(locale: EN)
+        url(locale: EN)
+        illustrationImageUrl
+        downloadsCount
+        viewsCount(cached: false)
+        totalSalesAmount(currency: USD) { value }
+        visibility
+        tags(locale: EN)
+        blueprints { fileUrl imageUrl }
+      }
+    }
+  }
+}
+```
+> Omit `cached: false` if cached view counts are acceptable.
+> Source: Gist `Show your own designs and their files.graphql` + Discord msg 1356293103581008093.
 
 ## Made-With-AI Filter
 ```graphql
@@ -242,6 +297,7 @@ mutation {
   }
 }
 ```
+> Source: Discord msg 1425527790723137548.
 
 ## High-Resolution Images
 ```graphql
@@ -255,3 +311,4 @@ mutation {
   }
 }
 ```
+> Source: Discord msg 1357745337367920790.

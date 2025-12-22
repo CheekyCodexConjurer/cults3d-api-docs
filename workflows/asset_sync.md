@@ -16,15 +16,15 @@ Keep this snapshot handy; every sync operation references it to avoid redundant 
 ## 3. Diff Desired vs Existing State
 - If both lists match exactly (including order), skip the sync and log that nothing changed.
 - Otherwise compute:
-  - **Creates** – URLs that do not yet exist.
-  - **Deletes** – IDs that are no longer needed.
-  - **Moves** – when URLs are the same but positions change (treat as update by deleting and recreating, since no dedicated move mutation exists).
+  - **Creates** - URLs that do not yet exist.
+  - **Deletes** - IDs that are no longer needed.
+  - **Moves** - when URLs are the same but positions change (treat as update by deleting and recreating, since no dedicated move mutation exists).
 
 ## 4. Apply Mutations
-1. **Create first** – Add all new URLs via `createBlueprint` / `createIllustration`, supplying the correct `position`. Pause briefly (≈5 s) between calls to respect the ~60 req / 30 s throttle noted on Discord.
-2. **Delete later** – Once the new assets are live, issue `destroyBlueprint(id: ...)` or `destroyIllustration(id: ...)` for the obsolete IDs.
-3. **Batching** – If you have more than a few assets, send them in small groups (≤10) to keep payloads readable and to simplify retries.
-4. **Retry strategy** – On HTTP 429/5xx or GraphQL errors, obey the backoff suggested by the Cults team (1s → 5s → 10s → 30s) before retrying the same mutation.
+1. **Create first** - Add all new URLs via `createBlueprint` / `createIllustration`, supplying the correct `position`. Pause briefly (~5 s) between calls to respect the ~60 req / 30 s throttle noted on Discord.
+2. **Delete later** - Once the new assets are live, issue `destroyBlueprint(id: ...)` or `destroyIllustration(id: ...)` for the obsolete IDs.
+3. **Batching** - If you have more than a few assets, send them in small groups (<=10) to keep payloads readable and to simplify retries.
+4. **Retry strategy** - On HTTP 429/5xx or GraphQL errors, obey the backoff suggested by the Cults team (1s -> 5s -> 10s -> 30s) before retrying the same mutation.
 
 ## 5. Verification
 - Re-run `creation(slug)` after the mutations finish.
@@ -33,7 +33,7 @@ Keep this snapshot handy; every sync operation references it to avoid redundant 
 
 ## Logging & Safety Tips
 - Always log which URLs you attempted to add/remove along with the response status. This helps prove respectful usage if the Cults team audits access.
-- When hosting assets on services like Google Drive, ensure the links return a direct download (Discord users observed “Unknown” filenames when query parameters hid the real name).
+- When hosting assets on services like Google Drive, ensure the links return a direct download (Discord users observed "Unknown" filenames when query parameters hid the real name).
 - Never run destructive operations (delete) in parallel with uploads; stagger them to keep the listing stable for buyers.
 
 ## Recovery
