@@ -19,7 +19,7 @@ All requests call `https://cults3d.com/graphql` with a JSON body such as:
 | `creation(slug)` | Query | Fetch ID, URL, and asset lists. | Gist `Show a design.graphql` |
 | `creationsBatch`, `creationsSearchBatch` | Query | Discovery with sort, paging, price/date filters, and `madeWithAi`. | Gist + Discord |
 | `printlistsBatch`, `addCreationToPrintlist` | Query/Mutation | Manage collections and embed their creations. | Discord |
-| `ordersBatch`, `salesBatch` | Query | Pull purchases, download URLs, sale income, discounts, and sale-time views snapshots. | Gist + Discord |
+| `ordersBatch`, `salesBatch` | Query | Pull purchases, download URLs, sale income, discounts, and sale-time view/like snapshots. | Gist + Discord |
 | `categories`, `licenses`, `user`, `myself` | Query | Reference data, user profile, likes, dashboard stats. | Gist |
 | `createDiscount` | Mutation | Schedule a promotion for a creation. | Gist `Add a discount.graphql` |
 
@@ -274,7 +274,7 @@ mutation {
 > The URLs returned inside `downloadUrl` still require your logged-in browser cookie to fetch. Sunny explicitly asked everyone to "give plenty of waiting time between requests" when automating downloads.
 > Source: Discord msg 1372299248560767106, msg 1389915227767963692.
 
-**Sales with applied discount + views snapshot** (Discord March/2025; views snapshot Dec/2025)
+**Sales with applied discount + view/like snapshots** (Discord March/2025; views snapshot Dec/2025; likes snapshot Jan/2026)
 ```graphql
 {
   myself {
@@ -286,6 +286,7 @@ mutation {
         user { nick }
         income(currency: EUR) { value }
         creationViewsCount
+        creationLikesCount
         createdAt
         payedOutAt
         discount {
@@ -299,8 +300,9 @@ mutation {
 }
 ```
 > `creationViewsCount` is a snapshot from the sale time (Dec/2025), not a live counter.
+> `creationLikesCount` is a sale-time likes snapshot (Jan/2026) and only populated for sales after that date.
 > SaleType also exposes `vat` (fixed Feb/2025) if you need tax details.
-> Source: Discord msg 1348948518307631155 (discount), msg 1339886382696628314 (vat), Dec/2025 screenshot for `creationViewsCount`.
+> Source: Discord msg 1348948518307631155 (discount), msg 1339886382696628314 (vat), Dec/2025 screenshot for `creationViewsCount`, Jan/2026 screenshot for `creationLikesCount`.
 
 **Create a discount** (gist)
 ```graphql

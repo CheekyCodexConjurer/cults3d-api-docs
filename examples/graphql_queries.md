@@ -152,13 +152,15 @@ mutation {
           price { value }
         }
         creationViewsCount
+        creationLikesCount
       }
     }
   }
 }
 ```
+> Discord Jan/2026: `creationLikesCount` in `salesBatch` is the likes count at the moment of sale and is only populated for new sales.
 > Discord Dec/2025: `creationViewsCount` in `salesBatch` is the view count at the moment of sale.
-> Source: Discord msg 1348948518307631155 (discount), Dec/2025 screenshot for `creationViewsCount`.
+> Source: Discord msg 1348948518307631155 (discount), Dec/2025 screenshot for `creationViewsCount`, Jan/2026 screenshot for `creationLikesCount`.
 
 ## Discounted Discoverability
 ```graphql

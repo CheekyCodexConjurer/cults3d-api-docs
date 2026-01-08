@@ -73,6 +73,7 @@ Use GraphiQL to confirm field names before shipping a client.
         id
         income(currency: EUR) { value } # or cents
         creationViewsCount
+        creationLikesCount
       }
     }
   }
@@ -117,11 +118,12 @@ See `rate_limit_contract.md` for the pacing algorithm.
 - **Meta tags** - October 2025 Discord announcements introduced full read/write support. Use `metaTags { code name }` to read and pass the `metaTags` argument when creating or updating a design to set them.
 - **Filters** - `creationsBatch` and `creationsSearchBatch` now support price toggles (`onlyFree`, `onlyPriced`, `onlyDiscounted`), date windows (`submittedAfter`, `submittedBefore`), and `madeWithAi: false` to exclude AI-assisted uploads.
 - **Visibility** - Use the `visibility` field on a creation to distinguish public/secret/deactivated items. Source: Discord msg 1380539355180957859.
-- **Commerce data** - `salesBatch` exposes `discount { percentage startAt endAt }` plus `creationViewsCount` (sale-time snapshot, Dec/2025). `ordersBatch` exposes `lines { downloadUrl }`, but fetching those URLs still requires your browser session cookie. `SaleType.vat` was fixed in Feb/2025.
+- **Commerce data** - `salesBatch` exposes `discount { percentage startAt endAt }` plus `creationViewsCount` (sale-time snapshot, Dec/2025) and `creationLikesCount` (sale-time likes, Jan/2026; only populated for new sales). `ordersBatch` exposes `lines { downloadUrl }`, but fetching those URLs still requires your browser session cookie. `SaleType.vat` was fixed in Feb/2025.
 - **Views caching** - `viewsCount(cached: false)` returns uncached values (Discord Apr/2025). Omit the argument if cached values are acceptable.
 
 ## Sales Analytics Notes
 - Use `creationViewsCount` for conversion at the time of sale; compare with current `viewsCount(cached: false)` only if you need trend deltas.
+- Use `creationLikesCount` for sale-time popularity; older sales may not include it.
 - For revenue charts, prefer `income(currency: EUR)` and convert client-side to avoid exchange-rate drift.
 - Use `payedOutAt` for payout-based reporting and `createdAt` for sale-time reporting.
 - Use `Sale.discount` for sale-time discounts; the creation's current discount can differ.

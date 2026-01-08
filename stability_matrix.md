@@ -4,7 +4,7 @@ Use this matrix to decide which fields need verification before you ship a clien
 
 ## Legend
 - **Stable** - Documented in the official gist.
-- **Recent** - Announced in Discord (2025).
+- **Recent** - Announced in Discord (2025-2026).
 - **Volatile** - Conflicting sources or known schema ambiguity.
 
 ## Field Stability
@@ -24,6 +24,7 @@ Use this matrix to decide which fields need verification before you ship a clien
 | `metaTags` | Creation field + mutation arg | Recent | Discord msg 1434835512383766588 | `__type(name: "Creation")` |
 | `viewsCount(cached: false)` | Creation field arg | Recent | Discord msg 1356293103581008093 | `__type(name: "Creation")` |
 | `creationViewsCount` | Sale field | Recent | Discord screenshot (Dec 2025) | `__type(name: "Sale")` |
+| `creationLikesCount` | Sale field | Recent | Discord screenshot (Jan 2026) | `__type(name: "Sale")` |
 | `discount` | Sale field | Recent | Discord msg 1348948518307631155 | `__type(name: "Sale")` |
 | `publicId` / `createdAt` / `price` | Order fields | Recent | Discord msg 1389915227767963692 | `__type(name: "Order")` |
 | `lines.downloadUrl` | OrderLine field | Recent | Discord msg 1372299248560767106 | Resolve `Order.lines` type |

@@ -35,6 +35,10 @@ Source: Discord msg 1348948518307631155.
 Yes. A Dec/2025 Discord update added a sale-time view snapshot to `salesBatch`. Include `creationViewsCount` in the results. Example in [endpoints.md#orders-sales-and-commerce](endpoints.md#orders-sales-and-commerce).
 Source: Discord screenshot (Dec 2025).
 
+### Can I see how many likes a design had when it sold?
+Yes. A Jan/2026 Discord update added a sale-time likes snapshot to `salesBatch`. Include `creationLikesCount` in the results; it is only populated for new sales. Example in [endpoints.md#orders-sales-and-commerce](endpoints.md#orders-sales-and-commerce).
+Source: Discord screenshot (Jan 2026).
+
 ### How do I get uncached view counts?
 Use `viewsCount(cached: false)` when querying `creationsBatch`. Omit the argument if cached values are acceptable. See [endpoints.md#collections-likes-and-users](endpoints.md#collections-likes-and-users).
 Source: Discord msg 1356293103581008093.

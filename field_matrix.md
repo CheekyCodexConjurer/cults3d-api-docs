@@ -14,6 +14,7 @@ Quick reference for common fields used by coding agents. Verify field names in G
 
 ## Sales Analytics Notes
 - Use `creationViewsCount` for sale-time conversion calculations.
+- Use `creationLikesCount` for sale-time popularity; older sales may not include it.
 - Use `viewsCount(cached: false)` if you need fresh view counts for current trends.
 - Prefer `income(currency: EUR)` for consistent reporting, and convert client-side if needed.
 - Use `createdAt` for sale-time reporting and `payedOutAt` for payout reporting.
@@ -28,6 +29,7 @@ Quick reference for common fields used by coding agents. Verify field names in G
 | `discount { percentage startAt endAt }` | Sale-time discount | Discord msg 1348948518307631155 |
 | `creation { name(locale: EN) }` | Creation summary | Gist |
 | `creationViewsCount` | Sale-time views snapshot | Discord screenshot (Dec 2025) |
+| `creationLikesCount` | Sale-time likes snapshot (only for sales after Jan 2026) | Discord screenshot (Jan 2026) |
 | `user { nick }` | Buyer summary | Gist |
 | `vat` | On `SaleType`, fixed Feb/2025 | Discord msg 1339886382696628314 |
 

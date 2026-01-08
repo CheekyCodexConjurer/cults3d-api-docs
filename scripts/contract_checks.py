@@ -175,7 +175,7 @@ def main() -> int:
     # Sale fields
     for field in ["id", "createdAt", "payedOutAt", "income"]:
         require(field in sale_fields, f"Sale missing field: {field}")
-    for field in ["discount", "creationViewsCount"]:
+    for field in ["discount", "creationViewsCount", "creationLikesCount"]:
         warn(field in sale_fields, f"Sale missing recent field: {field}")
 
     # SaleType.vat (optional)

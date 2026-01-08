@@ -48,6 +48,7 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `likesCount` | Like count | Integer | Gist |
 | `viewsCount(cached)` | View count | `cached: false` for fresh | Discord msg 1356293103581008093 |
 | `creationViewsCount` | Sale-time views | Only in `salesBatch` results | Discord screenshot (Dec 2025) |
+| `creationLikesCount` | Sale-time likes | Only in `salesBatch` results | Discord screenshot (Jan 2026) |
 | `madeWithAi` | AI usage flag | Filterable in `creationsBatch` | Discord msg 1425527790723137548 |
 | `metaTags` | Meta tag list | Read/write via mutations | Discord msg 1434835512383766588 |
 | `tags(locale)` | Tag list | Localized | Gist |
@@ -66,6 +67,7 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `income(currency)` | Money object | `value` vs `cents` | Gist + Discord msg 1356293103581008093 |
 | `discount` | Sale-time discount | `percentage`, `startAt`, `endAt` | Discord msg 1348948518307631155 |
 | `creationViewsCount` | Views at sale time | Snapshot | Discord screenshot (Dec 2025) |
+| `creationLikesCount` | Likes at sale time | Snapshot; only populated for sales after Jan 2026 | Discord screenshot (Jan 2026) |
 | `user` | Buyer info | `nick` | Gist |
 
 ## SaleType

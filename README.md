@@ -73,6 +73,7 @@ Smoke check:
         id
         income(currency: EUR) { value } # or cents
         creationViewsCount
+        creationLikesCount
       }
     }
   }
@@ -84,7 +85,7 @@ Optionally run `python scripts/contract_checks.py` to validate the fields listed
 These docs include everything that has been publicly discussed so far:
 - Model creation/update mutations, asset attachment, and deletion.
 - Discovery helpers: trending lists, search, price/date filters, `madeWithAi` flag, discounted-only views.
-- Account data: printlists (with nested creations), likes, orders (with `downloadUrl`), sales (with applied `discount` + sale-time `creationViewsCount` snapshot), creator stats (`viewsCount`, `totalSalesAmount`, visibility), and user snapshots.
+- Account data: printlists (with nested creations), likes, orders (with `downloadUrl`), sales (with applied `discount` + sale-time `creationViewsCount`/`creationLikesCount` snapshots), creator stats (`viewsCount`, `totalSalesAmount`, visibility), and user snapshots.
 - Meta tag read/write support (October 2025 Discord announcement).
 - Operational tips from Discord: hosting requirements, Basic auth troubleshooting, and pacing guidance.
 - Schema verification tooling: introspection query, snapshot guidance, and contract checks (`schema/` + `scripts/`).

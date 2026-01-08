@@ -2,6 +2,9 @@
 
 This log tracks updates from the official gist and the `#api-help` Discord channel. Keep entries short and include the source and date.
 
+## 2026-01-08 (Discord #api-help)
+- Added `creationLikesCount` on `salesBatch` results to capture likes at the time of sale. Only populated for new sales; older sales will not include it. Source: Discord screenshot (Jan 2026).
+
 ## 2025-12 (Discord #api-help)
 - Added `creationViewsCount` on `salesBatch` results to capture the view count at the time of sale. Source: Discord screenshot (Dec 2025, no msg id yet).
 
