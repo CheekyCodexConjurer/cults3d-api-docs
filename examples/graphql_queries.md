@@ -75,6 +75,17 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
 ```
 > Source: Discord msg 1346469900566401065.
 
+## Create a Printlist
+```graphql
+mutation {
+  createPrintlist(name: "Sheet Sync") {
+    errors
+    printlist { id url }
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
+
 ## Add Design to a Collection
 ```graphql
 mutation {
@@ -88,6 +99,26 @@ mutation {
 }
 ```
 > Source: Discord msg 1439933950192648252.
+
+## Remove Design From a Collection
+```graphql
+mutation {
+  removeCreationFromPrintlist(creationId: "CREATION_ID", printlistId: "PRINTLIST_ID") {
+    errors
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
+
+## Delete a Printlist
+```graphql
+mutation {
+  destroyPrintlist(id: "PRINTLIST_ID") {
+    errors
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
 
 ## Price Filters
 ```graphql
@@ -261,6 +292,23 @@ mutation {
 }
 ```
 > Source: Gist `Show your likes.graphql`.
+
+## Public Message Board Comments
+```graphql
+{
+  myself {
+    commentsBatch {
+      total
+      results {
+        publishedAt
+        creator { nick }
+        text
+      }
+    }
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
 
 ## My Designs + Stats (Uncached Views)
 ```graphql

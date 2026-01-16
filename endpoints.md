@@ -18,7 +18,8 @@ All requests call `https://cults3d.com/graphql` with a JSON body such as:
 | `destroyBlueprint` / `destroyIllustration` | Mutation | Remove obsolete files or renders. | Discord |
 | `creation(slug)` | Query | Fetch ID, URL, and asset lists. | Gist `Show a design.graphql` |
 | `creationsBatch`, `creationsSearchBatch` | Query | Discovery with sort, paging, price/date filters, and `madeWithAi`. | Gist + Discord |
-| `printlistsBatch`, `addCreationToPrintlist` | Query/Mutation | Manage collections and embed their creations. | Discord |
+| `printlistsBatch`, `createPrintlist`, `destroyPrintlist`, `addCreationToPrintlist`, `removeCreationFromPrintlist` | Query/Mutation | Manage collections, including creation add/remove and deletion. | Discord |
+| `myself.commentsBatch` | Query | Read public message board comments. | Discord |
 | `ordersBatch`, `salesBatch` | Query | Pull purchases, download URLs, sale income, discounts, and sale-time view/like snapshots. | Gist + Discord |
 | `categories`, `licenses`, `user`, `myself` | Query | Reference data, user profile, likes, dashboard stats. | Gist |
 | `createDiscount` | Mutation | Schedule a promotion for a creation. | Gist `Add a discount.graphql` |
@@ -207,6 +208,17 @@ Send calls sequentially (or in small batches) with a pause between them to honor
 ```
 > Source: Discord msg 1346469900566401065.
 
+**Create a printlist** (Discord Jan/2026)
+```graphql
+mutation {
+  createPrintlist(name: "A test") {
+    errors
+    printlist { id url }
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
+
 **Add a design to a collection** (Discord November/2025)
 ```graphql
 mutation {
@@ -221,6 +233,26 @@ mutation {
 ```
 > Source: Discord msg 1439933950192648252.
 
+**Remove a design from a collection** (Discord Jan/2026)
+```graphql
+mutation {
+  removeCreationFromPrintlist(creationId: "CREATION_ID", printlistId: "PRINTLIST_ID") {
+    errors
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
+
+**Delete a printlist** (Discord Jan/2026)
+```graphql
+mutation {
+  destroyPrintlist(id: "PRINTLIST_ID") {
+    errors
+  }
+}
+```
+> Source: Discord screenshot (Jan 2026).
+
 **Show a user** (gist)  
 `user(nick: "bigovereasy") { shortUrl bio imageUrl followersCount creationsCount creations(limit: 3, sort: BY_LIKES) { name(locale: EN) shortUrl illustrationImageUrl } }`
 > Source: Gist `Show a user.graphql`.
@@ -228,6 +260,24 @@ mutation {
 **Likes** (gist)  
 `myself { user { likedCreations(limit: 10, offset: 0) { name(locale: EN) url(locale: EN) } } }`
 > Source: Gist `Show your likes.graphql`.
+
+**Public message board comments** (Discord Jan/2026)
+```graphql
+{
+  myself {
+    commentsBatch {
+      total
+      results {
+        publishedAt
+        creator { nick }
+        text
+      }
+    }
+  }
+}
+```
+> Args were not shown in the Discord snippet; check GraphiQL for `limit` / `offset` if needed.
+> Source: Discord screenshot (Jan 2026).
 
 **My designs with stats + files** (gist + Discord Apr/2025)
 ```graphql

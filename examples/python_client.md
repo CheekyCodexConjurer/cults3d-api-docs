@@ -206,6 +206,83 @@ for entry in printlists:
     print(entry["name"], "->", [c["shortUrl"] for c in entry["creationsBatch"]["results"]])
 ```
 
+## Sync a Printlist from Google Sheets (CSV)
+Publish your Google Sheet as CSV with headers `printlist_name`, `creation_id`, and `action` (`add` or `remove`).
+```python
+import csv
+from io import StringIO
+
+SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/<SHEET_ID>/export?format=csv&gid=<GID>"
+
+LIST_PRINTLISTS = """
+{
+  myself {
+    printlistsBatch(limit: 50, offset: 0) {
+      results { id name }
+    }
+  }
+}
+"""
+
+CREATE_PRINTLIST = """
+mutation Create($name: String!) {
+  createPrintlist(name: $name) {
+    errors
+    printlist { id name url }
+  }
+}
+"""
+
+ADD_TO_PRINTLIST = """
+mutation Add($creationId: ID!, $printlistId: ID!) {
+  addCreationToPrintlist(creationId: $creationId, printlistId: $printlistId) {
+    errors
+  }
+}
+"""
+
+REMOVE_FROM_PRINTLIST = """
+mutation Remove($creationId: ID!, $printlistId: ID!) {
+  removeCreationFromPrintlist(creationId: $creationId, printlistId: $printlistId) {
+    errors
+  }
+}
+"""
+
+def fetch_sheet_rows(csv_url: str):
+    response = requests.get(csv_url, timeout=30)
+    response.raise_for_status()
+    reader = csv.DictReader(StringIO(response.text))
+    for row in reader:
+        yield {
+            "printlist_name": row["printlist_name"].strip(),
+            "creation_id": row["creation_id"].strip(),
+            "action": row["action"].strip().lower(),
+        }
+
+def get_or_create_printlist_id(name: str):
+    existing = run_graphql(LIST_PRINTLISTS)["myself"]["printlistsBatch"]["results"]
+    for entry in existing:
+        if entry["name"].strip().lower() == name.strip().lower():
+            return entry["id"]
+    created = run_graphql(CREATE_PRINTLIST, {"name": name})["createPrintlist"]
+    if created["errors"]:
+        raise RuntimeError(created["errors"])
+    return created["printlist"]["id"]
+
+for row in fetch_sheet_rows(SHEET_CSV_URL):
+    if not row["printlist_name"] or not row["creation_id"]:
+        continue
+    printlist_id = get_or_create_printlist_id(row["printlist_name"])
+    payload = {"creationId": row["creation_id"], "printlistId": printlist_id}
+    if row["action"] == "add":
+        run_graphql(ADD_TO_PRINTLIST, payload)
+    elif row["action"] == "remove":
+        run_graphql(REMOVE_FROM_PRINTLIST, payload)
+    else:
+        raise ValueError(f"Unknown action: {row['action']}")
+```
+
 ## Handling Errors
 Wrap calls in `try/except` to catch both HTTP issues and GraphQL validation failures:
 ```python

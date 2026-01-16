@@ -16,6 +16,7 @@ Use this matrix to decide which fields need verification before you ship a clien
 | `creationsSearchBatch` | Query | Stable | Gist | `__schema` query args |
 | `ordersBatch` | Query | Stable | Gist | Query a small batch |
 | `salesBatch` | Query | Stable | Gist | Query a small batch |
+| `commentsBatch` | Query (myself scope) | Recent | Discord screenshot (Jan 2026) | Resolve `myself` return type |
 | `createDiscount` | Mutation | Stable | Gist | Dry mutation in GraphiQL |
 | `value` vs `cents` | Money fields | Volatile | Gist + Discord | Check `MoneyType` in GraphiQL |
 | `submittedAfter` / `submittedBefore` | `creationsBatch` args | Recent | Discord msg 1339885721154097172 | `__schema` query args |
@@ -30,7 +31,10 @@ Use this matrix to decide which fields need verification before you ship a clien
 | `lines.downloadUrl` | OrderLine field | Recent | Discord msg 1372299248560767106 | Resolve `Order.lines` type |
 | `imageUrl(version: DEFAULT)` | Illustration image | Recent | Discord msg 1357745337367920790 | `__type(name: "Illustration")` |
 | `createBlueprint` / `createIllustration` (singular + `position`) | Mutations | Recent | Discord msg 1376995917026299984 | `__schema` mutation args |
+| `createPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
+| `destroyPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `addCreationToPrintlist` | Mutation | Recent | Discord msg 1439933950192648252 | `__schema` mutation args |
+| `removeCreationFromPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `visibility` | Creation field | Recent | Discord msg 1380539355180957859 | `__type(name: "Creation")` |
 | `SaleType.vat` | Sale type | Recent | Discord msg 1339886382696628314 | `__type(name: "SaleType")` |
 

@@ -15,6 +15,7 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `creationsBatch` | List designs with filters | `limit`, `offset`, `sort`, `onlyFree`, `onlyPriced`, `onlyDiscounted`, `submittedAfter`, `submittedBefore`, `madeWithAi` | Gist + Discord msg 1339885721154097172, 1341723740572221492, 1425527790723137548 |
 | `creationsSearchBatch` | Search designs by query | `query`, `limit`, `offset` | Gist `Search for a design.graphql` |
 | `printlistsBatch` | List user collections | `limit`, `offset` | Discord msg 1346469900566401065 |
+| `commentsBatch` | List public message board comments (myself scope) | none shown | Discord screenshot (Jan 2026) |
 | `ordersBatch` | List purchases and download URLs | `limit`, `offset` | Discord msg 1372299248560767106, 1389915227767963692 |
 | `salesBatch` | List sales events | `limit`, `offset` | Gist `List your sales.graphql` |
 | `user(nick)` | Public user profile | `nick` | Gist `Show a user.graphql` |
@@ -32,7 +33,10 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `createIllustration` | Attach an image | `creationId`, `imageUrl`, `position` | Discord msg 1376995917026299984 |
 | `destroyIllustration` | Remove an image | `id` | Discord msg 1376995917026299984 |
 | `createDiscount` | Schedule a discount | `creationId`, `discountPercentage`, `discountEndAt` | Gist `Add a discount.graphql` |
+| `createPrintlist` | Create a printlist | `name` | Discord screenshot (Jan 2026) |
+| `destroyPrintlist` | Delete a printlist | `id` | Discord screenshot (Jan 2026) |
 | `addCreationToPrintlist` | Add a creation to a collection | `creationId`, `printlistId` | Discord msg 1439933950192648252 |
+| `removeCreationFromPrintlist` | Remove a creation from a collection | `creationId`, `printlistId` | Discord screenshot (Jan 2026) |
 
 ## Creation
 | Field | Meaning | Notes | Source |
@@ -98,6 +102,13 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `followersCount` | Followers | Integer | Discord msg 1356293103581008093 |
 | `creationsCount` | Number of creations | Integer | Gist |
 | `likedCreations` | Liked designs | Use `limit` + `offset` | Gist |
+
+## Comment (commentsBatch results)
+| Field | Meaning | Notes | Source |
+| --- | --- | --- | --- |
+| `publishedAt` | Comment timestamp | ISO-8601 | Discord screenshot (Jan 2026) |
+| `creator` | Author summary | Includes `nick` | Discord screenshot (Jan 2026) |
+| `text` | Comment body | Text | Discord screenshot (Jan 2026) |
 
 ## Printlist
 | Field | Meaning | Notes | Source |

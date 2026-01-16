@@ -84,3 +84,10 @@ Quick reference for common fields used by coding agents. Verify field names in G
 | `public` | Visibility flag | Discord msg 1346469900566401065 |
 | `position` | Ordering on profile | Gist |
 | `creationsBatch(limit, offset)` | Nested creations | Discord msg 1346469900566401065 |
+
+## Comment (commentsBatch results)
+| Field | Notes | Source |
+| --- | --- | --- |
+| `publishedAt` | Comment timestamp | Discord screenshot (Jan 2026) |
+| `creator { nick }` | Author summary | Discord screenshot (Jan 2026) |
+| `text` | Comment body | Discord screenshot (Jan 2026) |
