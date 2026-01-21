@@ -120,6 +120,19 @@ mutation {
 ```
 > Source: Discord screenshot (Jan 2026).
 
+## Notify Previous Downloaders
+```graphql
+mutation {
+  createChangeNotification(
+    creationId: "CREATION_ID"
+    text: "Updated the STL to fix supports."
+  ) {
+    errors
+  }
+}
+```
+> Source: Discord screenshot (Jan 20, 2026).
+
 ## Price Filters
 ```graphql
 {

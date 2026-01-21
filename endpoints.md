@@ -16,6 +16,7 @@ All requests call `https://cults3d.com/graphql` with a JSON body such as:
 | `updateCreation` | Mutation | Modify any mutable field or adjust price only. | Gist `Update a creation price.graphql` |
 | `createBlueprint` / `createIllustration` | Mutation | Attach a hosted ZIP/PNG to a creation. | Discord (`#api-help`) |
 | `destroyBlueprint` / `destroyIllustration` | Mutation | Remove obsolete files or renders. | Discord |
+| `createChangeNotification` | Mutation | Notify previous downloaders after a blueprint update. | Discord screenshot (Jan 20, 2026) |
 | `creation(slug)` | Query | Fetch ID, URL, and asset lists. | Gist `Show a design.graphql` |
 | `creationsBatch`, `creationsSearchBatch` | Query | Discovery with sort, paging, price/date filters, and `madeWithAi`. | Gist + Discord |
 | `printlistsBatch`, `createPrintlist`, `destroyPrintlist`, `addCreationToPrintlist`, `removeCreationFromPrintlist` | Query/Mutation | Manage collections, including creation add/remove and deletion. | Discord |
@@ -126,6 +127,20 @@ mutation {
 }
 ```
 Send calls sequentially (or in small batches) with a pause between them to honor rate limits.
+
+**Notify previous downloaders about a change** (Discord Jan/2026)
+```graphql
+mutation {
+  createChangeNotification(
+    creationId: "CREATION_ID"
+    text: "Updated the STL to fix supports."
+  ) {
+    errors
+  }
+}
+```
+> Trigger this after updating a blueprint so past downloaders get the message.
+> Source: Discord screenshot (Jan 20, 2026).
 
 ## Discovery & Filters
 - **Trending / likes** (Discord answer to "how do I fetch most liked models?")

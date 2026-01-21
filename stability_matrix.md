@@ -31,6 +31,7 @@ Use this matrix to decide which fields need verification before you ship a clien
 | `lines.downloadUrl` | OrderLine field | Recent | Discord msg 1372299248560767106 | Resolve `Order.lines` type |
 | `imageUrl(version: DEFAULT)` | Illustration image | Recent | Discord msg 1357745337367920790 | `__type(name: "Illustration")` |
 | `createBlueprint` / `createIllustration` (singular + `position`) | Mutations | Recent | Discord msg 1376995917026299984 | `__schema` mutation args |
+| `createChangeNotification` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `createPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `destroyPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `addCreationToPrintlist` | Mutation | Recent | Discord msg 1439933950192648252 | `__schema` mutation args |

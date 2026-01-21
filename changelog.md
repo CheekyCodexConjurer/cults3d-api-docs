@@ -2,6 +2,9 @@
 
 This log tracks updates from the official gist and the `#api-help` Discord channel. Keep entries short and include the source and date.
 
+## 2026-01-20 (Discord #api-help)
+- Added `createChangeNotification` to alert previous downloaders after blueprint updates. Source: Discord screenshot (Jan 20, 2026).
+
 ## 2026-01-14 (Discord #api-help)
 - Added printlist mutations: `createPrintlist`, `destroyPrintlist`, and `removeCreationFromPrintlist`. Source: Discord screenshot (Jan 2026).
 - Added `commentsBatch` under `myself` to list public message board comments. Source: Discord screenshot (Jan 2026).
