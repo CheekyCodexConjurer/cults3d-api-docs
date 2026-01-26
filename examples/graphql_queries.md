@@ -78,13 +78,14 @@ All snippets below work against `https://cults3d.com/graphql` with the proper AP
 ## Create a Printlist
 ```graphql
 mutation {
-  createPrintlist(name: "Sheet Sync") {
+  createPrintlist(name: "Sheet Sync", public: true) {
     errors
     printlist { id url }
   }
 }
 ```
-> Source: Discord screenshot (Jan 2026).
+> Optional `public: true` creates a public list; omit it for private.
+> Source: Discord screenshot (Jan 2026) + Discord screenshot (Jan 22, 2026).
 
 ## Add Design to a Collection
 ```graphql

@@ -223,16 +223,17 @@ mutation {
 ```
 > Source: Discord msg 1346469900566401065.
 
-**Create a printlist** (Discord Jan/2026)
+**Create a printlist** (Discord Jan/2026, update Jan 22, 2026)
 ```graphql
 mutation {
-  createPrintlist(name: "A test") {
+  createPrintlist(name: "A test", public: true) {
     errors
     printlist { id url }
   }
 }
 ```
-> Source: Discord screenshot (Jan 2026).
+Optional `public: true` sets the visibility to public; omit it to keep the list private by default.
+> Source: Discord screenshot (Jan 2026) + Discord screenshot (Jan 22, 2026).
 
 **Add a design to a collection** (Discord November/2025)
 ```graphql
