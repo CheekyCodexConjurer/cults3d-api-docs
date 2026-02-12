@@ -36,6 +36,7 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `createDiscount` | Schedule a discount | `creationId`, `discountPercentage`, `discountEndAt` | Gist `Add a discount.graphql` |
 | `createPrintlist` | Create a printlist | `name`, `public` | Discord screenshot (Jan 2026, Jan 22, 2026) |
 | `destroyPrintlist` | Delete a printlist | `id` | Discord screenshot (Jan 2026) |
+| `updatePrintlist` | Update a printlist | `id`, `name`, `public`, `locale` | User-provided API update |
 | `addCreationToPrintlist` | Add a creation to a collection | `creationId`, `printlistId` | Discord msg 1439933950192648252 |
 | `removeCreationFromPrintlist` | Remove a creation from a collection | `creationId`, `printlistId` | Discord screenshot (Jan 2026) |
 

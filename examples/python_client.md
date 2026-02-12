@@ -233,6 +233,18 @@ mutation Create($name: String!) {
 }
 """
 
+UPDATE_PRINTLIST = """
+mutation UpdatePrintlist($id: ID!, $name: String!, $public: Boolean!) {
+  updatePrintlist(id: $id, name: $name, public: $public, locale: EN) {
+    errors
+    printlist {
+      name(locale: EN)
+      public
+    }
+  }
+}
+"""
+
 ADD_TO_PRINTLIST = """
 mutation Add($creationId: ID!, $printlistId: ID!) {
   addCreationToPrintlist(creationId: $creationId, printlistId: $printlistId) {

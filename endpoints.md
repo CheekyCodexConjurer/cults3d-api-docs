@@ -19,7 +19,7 @@ All requests call `https://cults3d.com/graphql` with a JSON body such as:
 | `createChangeNotification` | Mutation | Notify previous downloaders after a blueprint update. | Discord screenshot (Jan 20, 2026) |
 | `creation(slug)` | Query | Fetch ID, URL, and asset lists. | Gist `Show a design.graphql` |
 | `creationsBatch`, `creationsSearchBatch` | Query | Discovery with sort, paging, price/date filters, and `madeWithAi`. | Gist + Discord |
-| `printlistsBatch`, `createPrintlist`, `destroyPrintlist`, `addCreationToPrintlist`, `removeCreationFromPrintlist` | Query/Mutation | Manage collections, including creation add/remove and deletion. | Discord |
+| `printlistsBatch`, `createPrintlist`, `updatePrintlist`, `destroyPrintlist`, `addCreationToPrintlist`, `removeCreationFromPrintlist` | Query/Mutation | Manage collections, including creation add/remove, updates, and deletion. | Discord |
 | `myself.commentsBatch` | Query | Read public message board comments. | Discord |
 | `ordersBatch`, `salesBatch` | Query | Pull purchases, download URLs, sale income, discounts, and sale-time view/like snapshots. | Gist + Discord |
 | `categories`, `licenses`, `user`, `myself` | Query | Reference data, user profile, likes, dashboard stats. | Gist |
@@ -234,6 +234,20 @@ mutation {
 ```
 Optional `public: true` sets the visibility to public; omit it to keep the list private by default.
 > Source: Discord screenshot (Jan 2026) + Discord screenshot (Jan 22, 2026).
+
+**Update a printlist** (User-provided API update)
+```graphql
+mutation {
+  updatePrintlist(id: "f00b4r42xGebla", name: "Mine ♥", public: false, locale: EN) {
+    errors
+    printlist {
+      name(locale: EN)
+      public
+    }
+  }
+}
+```
+> Source: user-provided API update payload.
 
 **Add a design to a collection** (Discord November/2025)
 ```graphql

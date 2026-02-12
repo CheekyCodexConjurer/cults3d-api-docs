@@ -87,6 +87,19 @@ mutation {
 > Optional `public: true` creates a public list; omit it for private.
 > Source: Discord screenshot (Jan 2026) + Discord screenshot (Jan 22, 2026).
 
+## Update a Printlist
+```graphql
+mutation {
+  updatePrintlist(id: "f00b4r42xGebla", name: "Mine ♥", public: false, locale: EN) {
+    errors
+    printlist {
+      name(locale: EN)
+      public
+    }
+  }
+}
+```
+
 ## Add Design to a Collection
 ```graphql
 mutation {

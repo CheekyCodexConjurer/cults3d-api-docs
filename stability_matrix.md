@@ -33,6 +33,7 @@ Use this matrix to decide which fields need verification before you ship a clien
 | `createBlueprint` / `createIllustration` (singular + `position`) | Mutations | Recent | Discord msg 1376995917026299984 | `__schema` mutation args |
 | `createChangeNotification` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `createPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
+| `updatePrintlist` | Mutation | Recent | User-provided API update | `__schema` mutation args |
 | `destroyPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `addCreationToPrintlist` | Mutation | Recent | Discord msg 1439933950192648252 | `__schema` mutation args |
 | `removeCreationFromPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |

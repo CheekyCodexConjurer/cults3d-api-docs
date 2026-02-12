@@ -123,7 +123,12 @@ def main() -> int:
     ]:
         require(field in mutation_fields, f"Missing mutation field: {field}")
 
-    warn("addCreationToPrintlist" in mutation_fields, "Missing mutation field: addCreationToPrintlist")
+    for field in ["addCreationToPrintlist", "updatePrintlist"]:
+        warn(field in mutation_fields, f"Missing mutation field: {field}")
+
+    update_printlist_args = {arg["name"] for arg in mutation_fields.get("updatePrintlist", {}).get("args", [])}
+    for arg in ["id", "name", "public", "locale"]:
+        warn(arg in update_printlist_args, f"updatePrintlist missing arg: {arg}")
 
     # Query args for creationsBatch
     creations_batch_args = {arg["name"] for arg in query_fields.get("creationsBatch", {}).get("args", [])}
