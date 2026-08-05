@@ -21,6 +21,7 @@ All requests call `https://cults3d.com/graphql` with a JSON body such as:
 | `creationsBatch`, `creationsSearchBatch` | Query | Discovery with sort, paging, price/date filters, and `madeWithAi`. | Gist + Discord |
 | `printlistsBatch`, `createPrintlist`, `updatePrintlist`, `destroyPrintlist`, `addCreationToPrintlist`, `removeCreationFromPrintlist` | Query/Mutation | Manage collections, including creation add/remove, updates, and deletion. | Discord |
 | `myself.commentsBatch` | Query | Read public message board comments. | Discord |
+| `myself.bundlesBatch`, `updateBundle` | Query/Mutation | List, filter, and update own bundles. | Screenshot message timestamps shown (Jul 2026) |
 | `ordersBatch`, `salesBatch` | Query | Pull purchases, download URLs, sale income, discounts, and sale-time view/like snapshots. | Gist + Discord |
 | `categories`, `licenses`, `user`, `myself` | Query | Reference data, user profile, likes, dashboard stats. | Gist |
 | `createDiscount` | Mutation | Schedule a promotion for a creation. | Gist `Add a discount.graphql` |
@@ -309,6 +310,53 @@ mutation {
 > Args were not shown in the Discord snippet; check GraphiQL for `limit` / `offset` if needed.
 > Source: Discord screenshot (Jan 2026).
 
+**Bundles** (message timestamps shown in screenshots: 2026-07-13 and 2026-07-16)
+```graphql
+{
+  myself {
+    bundlesBatch {
+      total
+      results {
+        name
+        description
+        discountPercentage
+        creations { name }
+      }
+    }
+  }
+}
+```
+Filter own bundles by state:
+```graphql
+{
+  myself {
+    bundlesBatch(state: ARCHIVED) {
+      total
+      results {
+        name
+        state
+      }
+    }
+  }
+}
+```
+Update a bundle:
+```graphql
+mutation {
+  updateBundle(
+    id: "BUNDLE_ID"
+    name: "New bundle name"
+    description: "Updated description"
+    discountPercentage: 15
+    state: ACTIVE
+  ) {
+    errors { name }
+  }
+}
+```
+> The screenshots only show the `errors { name }` selection for `updateBundle`; the return shape, argument types/units, `bundlesBatch` pagination/result-type details, and `state` values beyond `ACTIVE` / `ARCHIVED` are unshown — verify in GraphiQL.
+> Source: screenshots (message timestamps shown: 2026-07-13, 2026-07-16 12:55, 2026-07-16 13:10).
+
 **My designs with stats + files** (gist + Discord Apr/2025)
 ```graphql
 {
@@ -321,6 +369,7 @@ mutation {
         name(locale: EN)
         url(locale: EN)
         illustrationImageUrl
+        illustrations { id imageUrl }
         downloadsCount
         viewsCount(cached: false)
         totalSalesAmount(currency: USD) { value }
@@ -333,7 +382,8 @@ mutation {
 }
 ```
 > Use `viewsCount(cached: false)` for the freshest numbers. Omit the argument if you prefer cached values.
-> Source: Gist `Show your own designs and their files.graphql` + Discord msg 1356293103581008093.
+> `illustrationImageUrl` is the single cover/thumbnail string; `illustrations` is the full gallery including the cover.
+> Source: Gist `Show your own designs and their files.graphql` + Discord msg 1356293103581008093; cover vs gallery (screenshot message date inferred as 2026-08-04).
 
 ## Orders, Sales, and Commerce
 **Orders with download URLs** (Discord May/2025)
@@ -405,7 +455,11 @@ mutation {
 
 ## Reference Data
 - **Categories** - `categories { id name(locale: EN) children { id name(locale: EN) } }`
+- **Categories incl. NSFW** - `categories(safe: false) { id name(locale: EN) children { id name(locale: EN) } }` returns categories including NSFW ones.
+  > Source: screenshot (message timestamp shown: 2026-05-18).
 - **Licenses** - `licenses { code name(locale: EN) url(locale: EN) availableOnFreeDesigns availableOnPricedDesigns }`
+- **License SPDX identifiers** - `creationsBatch { results { license { spdxId } } }` exposes SPDX ids; Cults-specific identifiers use the `LicenseRef-Cults-` prefix. See https://spdx.org/licenses/identifiers.
+  > Source: screenshot (message timestamp shown: 2026-07-30).
 - **Meta tags** - Discord (Nov/2025) confirmed you can now read/write them:
   ```graphql
   {
@@ -437,6 +491,9 @@ mutation {
 }
 ```
 > Source: Discord msg 1357745337367920790.
+
+**Cover vs full gallery** (screenshot message date inferred as 2026-08-04 from the 2026-08-05 capture's relative "Ontem" timestamp)
+`illustrationImageUrl` is the single cover/thumbnail string; `illustrations` is the full gallery array including the cover, each entry exposing `id` and `imageUrl`. The `version: DEFAULT` argument shown above still applies to the image fields.
 
 ## Notes & Best Practices
 - Always check the `errors` array returned by each mutation; failed validations surface here even when HTTP status is 200.

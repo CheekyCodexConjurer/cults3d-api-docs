@@ -16,11 +16,12 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `creationsSearchBatch` | Search designs by query | `query`, `limit`, `offset` | Gist `Search for a design.graphql` |
 | `printlistsBatch` | List user collections | `limit`, `offset` | Discord msg 1346469900566401065 |
 | `commentsBatch` | List public message board comments (myself scope) | none shown | Discord screenshot (Jan 2026) |
+| `bundlesBatch` | List own bundles (myself scope) | `state` shown; pagination/result-type details unshown — verify in GraphiQL | Screenshot message timestamps shown (2026-07-13, 2026-07-16 12:55) |
 | `ordersBatch` | List purchases and download URLs | `limit`, `offset` | Discord msg 1372299248560767106, 1389915227767963692 |
 | `salesBatch` | List sales events | `limit`, `offset` | Gist `List your sales.graphql` |
 | `user(nick)` | Public user profile | `nick` | Gist `Show a user.graphql` |
 | `myself` | Current user scope | none | Gist |
-| `categories` | Category tree | none | Gist `Show categories.graphql` |
+| `categories` | Category tree | `safe: false` includes NSFW categories | Gist `Show categories.graphql` + screenshot message timestamp shown (2026-05-18) |
 | `licenses` | License catalog | none | Gist `List available licenses.graphql` |
 
 ## Mutations (ApplicationMutation)
@@ -39,6 +40,7 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `updatePrintlist` | Update a printlist | `id`, `name`, `public`, `locale` | User-provided API update |
 | `addCreationToPrintlist` | Add a creation to a collection | `creationId`, `printlistId` | Discord msg 1439933950192648252 |
 | `removeCreationFromPrintlist` | Remove a creation from a collection | `creationId`, `printlistId` | Discord screenshot (Jan 2026) |
+| `updateBundle` | Update bundle details | `id`, `name`, `description`, `discountPercentage`, `state` | Screenshot message timestamp shown (2026-07-16 13:10) |
 
 ## Creation
 | Field | Meaning | Notes | Source |
@@ -60,8 +62,9 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `tags(locale)` | Tag list | Localized | Gist |
 | `visibility` | Visibility state | Use for deactivated/secret | Discord msg 1380539355180957859 |
 | `totalSalesAmount(currency)` | Sales total | Money type | Discord msg 1356293103581008093 |
-| `illustrationImageUrl` | Cover image | Use `version: DEFAULT` for large | Discord msg 1357745337367920790 |
-| `illustrations` | Image list | `imageUrl`, `position` | Gist |
+| `illustrationImageUrl` | Cover image | Single cover/thumbnail string; use `version: DEFAULT` for large | Discord msg 1357745337367920790 + screenshot message date inferred as 2026-08-04 |
+| `illustrations` | Full gallery | Includes the cover; entries expose `id`, `imageUrl`, `position` | Gist + screenshot message date inferred as 2026-08-04 |
+| `license` | License object | Exposes `spdxId` | Screenshot message timestamp shown (2026-07-30) |
 | `blueprints` | File list | `fileUrl`, `imageUrl` | Gist |
 
 ## Sale
@@ -122,6 +125,17 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `position` | Ordering on profile | Integer | Gist `List my printlists.graphql` |
 | `creationsBatch` | Nested creations | Use `limit` + `offset` | Discord msg 1346469900566401065 |
 
+## Bundle (myself.bundlesBatch results)
+| Field | Meaning | Notes | Source |
+| --- | --- | --- | --- |
+| `name` | Bundle name | Text | Screenshot message timestamp shown (2026-07-13) |
+| `description` | Bundle description | Text | Screenshot message timestamp shown (2026-07-13) |
+| `discountPercentage` | Bundle discount | Percent shown in captures; units: verify in GraphiQL | Screenshot message timestamp shown (2026-07-13) |
+| `state` | Bundle state | `ACTIVE` / `ARCHIVED` shown; other values: verify in GraphiQL | Screenshot message timestamp shown (2026-07-16 12:55) |
+| `creations` | Bundled designs | `name` shown | Screenshot message timestamp shown (2026-07-13) |
+
+> `myself.bundlesBatch` result type and pagination details are not shown in the captures; verify in GraphiQL.
+
 ## Category
 | Field | Meaning | Notes | Source |
 | --- | --- | --- | --- |
@@ -137,6 +151,7 @@ This file defines the core objects and fields used in the Cults3D GraphQL API. U
 | `url(locale)` | License URL | Use `locale: EN` | Gist |
 | `availableOnFreeDesigns` | Eligibility | Boolean | Gist |
 | `availableOnPricedDesigns` | Eligibility | Boolean | Gist |
+| `spdxId` | SPDX identifier | Cults-specific ids use the `LicenseRef-Cults-` prefix; nullability: verify in GraphiQL | Screenshot message timestamp shown (2026-07-30) |
 
 ## Money / Price Types
 | Type | Field | Notes |

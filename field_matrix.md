@@ -48,8 +48,9 @@ Quick reference for common fields used by coding agents. Verify field names in G
 | `name(locale: EN)` | Localized name | Gist |
 | `url(locale: EN)` | Localized URL | Gist |
 | `shortUrl` | Short link | Gist |
-| `illustrationImageUrl` | Cover image | Gist |
+| `illustrationImageUrl` | Cover image (single cover/thumbnail string) | Gist + screenshot message date inferred as 2026-08-04 |
 | `illustrationImageUrl(version: DEFAULT)` | Large image variant | Discord msg 1357745337367920790 |
+| `license { spdxId }` | SPDX id; Cults-specific ids use the `LicenseRef-Cults-` prefix | Screenshot message timestamp shown (2026-07-30) |
 | `price(currency: EUR) { value }` | Money field, currency argument | Gist (uses `cents`) |
 | `viewsCount(cached: false)` | Uncached view count | Discord msg 1356293103581008093 |
 | `downloadsCount` | Downloads | Gist |
@@ -62,7 +63,7 @@ Quick reference for common fields used by coding agents. Verify field names in G
 | `publishedAt` | Publish timestamp | Gist |
 | `discount { percentage originalPrice startAt endAt }` | Current discount | Gist |
 | `blueprints { fileUrl imageUrl }` | Files list | Gist |
-| `illustrations { imageUrl position }` | Images list | Gist |
+| `illustrations { id imageUrl position }` | Full gallery incl. cover | Gist + screenshot message date inferred as 2026-08-04 |
 
 ## User (user / myself.user)
 | Field | Notes | Source |
@@ -91,3 +92,18 @@ Quick reference for common fields used by coding agents. Verify field names in G
 | `publishedAt` | Comment timestamp | Discord screenshot (Jan 2026) |
 | `creator { nick }` | Author summary | Discord screenshot (Jan 2026) |
 | `text` | Comment body | Discord screenshot (Jan 2026) |
+
+## Bundle (myself.bundlesBatch results)
+| Field | Notes | Source |
+| --- | --- | --- |
+| `name` | Bundle name | Screenshot message timestamp shown (2026-07-13) |
+| `description` | Bundle description | Screenshot message timestamp shown (2026-07-13) |
+| `discountPercentage` | Bundle discount; units: verify in GraphiQL | Screenshot message timestamp shown (2026-07-13) |
+| `state` | Bundle state; `ACTIVE` / `ARCHIVED` shown, others: verify in GraphiQL | Screenshot message timestamp shown (2026-07-16 12:55) |
+| `creations` | Bundled designs | Screenshot message timestamp shown (2026-07-13) |
+
+## License
+| Field | Notes | Source |
+| --- | --- | --- |
+| `code` | License code, pass to `licenseCode` | Gist |
+| `spdxId` | SPDX identifier; Cults-specific ids use the `LicenseRef-Cults-` prefix; nullability: verify in GraphiQL | Screenshot message timestamp shown (2026-07-30) |

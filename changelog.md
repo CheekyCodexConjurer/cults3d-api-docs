@@ -1,6 +1,24 @@
 # Changelog
 
-This log tracks updates from the official gist and the `#api-help` Discord channel. Keep entries short and include the source and date.
+This log tracks updates from the official gist and the `#api-help` Discord channel. Keep entries short and include the source and date. For screenshot-backed entries, the date is the message/history timestamp shown in the image; the supplied screenshots were captured on 2026-08-05. Relative timestamps are marked as inferred.
+
+## 2026-08-04 (Screenshot; message date inferred from relative timestamp)
+- `Creation.illustrationImageUrl` is the single cover/thumbnail string; `illustrations` is the full gallery array including the cover, with entries exposing `id` and `imageUrl`. Source: screenshot showing a relative "Ontem" timestamp.
+
+## 2026-07-30 (Screenshot; message timestamp shown)
+- `creationsBatch` results expose `license { spdxId }`; Cults-specific identifiers use the `LicenseRef-Cults-` prefix. See https://spdx.org/licenses/identifiers. Source: screenshot (message timestamp shown: Jul 30, 2026).
+
+## 2026-07-16 13:10 (Screenshot; message timestamp shown)
+- Added `updateBundle` mutation to update bundle details (`name`, `description`, `discountPercentage`, `state: ACTIVE`). Screenshot only shows the `errors { name }` selection; return shape and argument types/units unshown — verify in GraphiQL. Source: screenshot (message timestamp shown: Jul 16, 2026 13:10).
+
+## 2026-07-16 12:55 (Screenshot; message timestamp shown)
+- `myself { bundlesBatch(state: ARCHIVED) }` filters own bundles by state. Source: screenshot (message timestamp shown: Jul 16, 2026 12:55).
+
+## 2026-07-13 (Screenshot; message timestamp shown)
+- `myself { bundlesBatch { total results { name description discountPercentage creations { name } } } }` lists own bundles. Pagination/result-type details unshown — verify in GraphiQL. Source: screenshot (message timestamp shown: Jul 13, 2026).
+
+## 2026-05-18 (Screenshot; message timestamp shown)
+- `categories(safe: false)` returns categories including NSFW; query selects `id`, `name`, `children { id name(locale: EN) }`. Source: screenshot (message timestamp shown: May 18, 2026).
 
 ## 2026-01-22 (Discord #api-help)
 - `createPrintlist` now accepts `public: true` to create a public list. Source: Discord screenshot (Jan 22, 2026).

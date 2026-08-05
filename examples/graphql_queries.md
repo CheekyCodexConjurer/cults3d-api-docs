@@ -134,6 +134,53 @@ mutation {
 ```
 > Source: Discord screenshot (Jan 2026).
 
+## Bundles
+```graphql
+{
+  myself {
+    bundlesBatch {
+      total
+      results {
+        name
+        description
+        discountPercentage
+        creations { name }
+      }
+    }
+  }
+}
+```
+Filter own bundles by state:
+```graphql
+{
+  myself {
+    bundlesBatch(state: ARCHIVED) {
+      total
+      results {
+        name
+        state
+      }
+    }
+  }
+}
+```
+Update a bundle:
+```graphql
+mutation {
+  updateBundle(
+    id: "BUNDLE_ID"
+    name: "New bundle name"
+    description: "Updated description"
+    discountPercentage: 15
+    state: ACTIVE
+  ) {
+    errors { name }
+  }
+}
+```
+> The captures only show the `errors { name }` selection for `updateBundle`; the return shape, argument types/units, `bundlesBatch` pagination/result-type details, and `state` values beyond `ACTIVE` / `ARCHIVED` are unshown — verify in GraphiQL.
+> Source: screenshots (message timestamps shown: 2026-07-13, 2026-07-16 12:55, 2026-07-16 13:10).
+
 ## Notify Previous Downloaders
 ```graphql
 mutation {
@@ -349,6 +396,7 @@ mutation {
         name(locale: EN)
         url(locale: EN)
         illustrationImageUrl
+        illustrations { id imageUrl }
         downloadsCount
         viewsCount(cached: false)
         totalSalesAmount(currency: USD) { value }
@@ -361,7 +409,8 @@ mutation {
 }
 ```
 > Omit `cached: false` if cached view counts are acceptable.
-> Source: Gist `Show your own designs and their files.graphql` + Discord msg 1356293103581008093.
+> `illustrationImageUrl` is the single cover/thumbnail string; `illustrations` is the full gallery including the cover.
+> Source: Gist `Show your own designs and their files.graphql` + Discord msg 1356293103581008093; cover vs gallery (screenshot message date inferred as 2026-08-04).
 
 ## Made-With-AI Filter
 ```graphql
@@ -376,6 +425,32 @@ mutation {
 ```
 > Source: Discord msg 1425527790723137548.
 
+## Categories incl. NSFW
+```graphql
+{
+  categories(safe: false) {
+    id
+    name(locale: EN)
+    children { id name(locale: EN) }
+  }
+}
+```
+> Source: screenshot (message timestamp shown: 2026-05-18).
+
+## License SPDX Identifiers
+```graphql
+{
+  creationsBatch(limit: 3) {
+    results {
+      name(locale: EN)
+      license { spdxId }
+    }
+  }
+}
+```
+> Cults-specific identifiers use the `LicenseRef-Cults-` prefix; see https://spdx.org/licenses/identifiers.
+> Source: screenshot (message timestamp shown: 2026-07-30).
+
 ## High-Resolution Images
 ```graphql
 {
@@ -388,4 +463,5 @@ mutation {
   }
 }
 ```
-> Source: Discord msg 1357745337367920790.
+> `illustrationImageUrl` is the single cover/thumbnail string; `illustrations` is the full gallery including the cover (screenshot message date inferred as 2026-08-04).
+> Source: screenshot for the cover-vs-gallery distinction; Discord msg 1357745337367920790 for `version: DEFAULT`.

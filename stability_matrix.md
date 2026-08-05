@@ -39,6 +39,12 @@ Use this matrix to decide which fields need verification before you ship a clien
 | `removeCreationFromPrintlist` | Mutation | Recent | Discord screenshot (Jan 2026) | `__schema` mutation args |
 | `visibility` | Creation field | Recent | Discord msg 1380539355180957859 | `__type(name: "Creation")` |
 | `SaleType.vat` | Sale type | Recent | Discord msg 1339886382696628314 | `__type(name: "SaleType")` |
+| `bundlesBatch` | Query (myself scope) | Recent | Screenshot message timestamp shown (2026-07-13) | Resolve `myself` return type + `__schema` args |
+| `bundlesBatch(state:)` | Query (myself scope) | Recent | Screenshot message timestamp shown (2026-07-16 12:55) | Resolve `myself` return type |
+| `updateBundle` | Mutation | Recent | Screenshot message timestamp shown (2026-07-16 13:10) | `__schema` mutation args |
+| `categories(safe: false)` | Query arg | Recent | Screenshot message timestamp shown (2026-05-18) | `__schema` query args |
+| `license.spdxId` | License field | Recent | Screenshot message timestamp shown (2026-07-30) | Resolve `Creation.license` type, then inspect `spdxId` |
+| `illustrationImageUrl` vs `illustrations` | Creation fields | Recent | Screenshot message date inferred as 2026-08-04 | `__type(name: "Creation")` + resolve element type |
 
 ## Verification Routine
 1. Run the introspection query in `schema/introspection.graphql` or execute `python scripts/contract_checks.py`.

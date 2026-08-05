@@ -12,8 +12,8 @@ API_URL = os.environ.get("CULTS_API_URL", "https://cults3d.com/graphql")
 ROOT_QUERY = """
 {
   __schema {
-    queryType { name fields { name args { name } } }
-    mutationType { name fields { name args { name } } }
+    queryType { name fields { name args { name } type { kind name ofType { kind name ofType { kind name ofType { kind name } } } } } }
+    mutationType { name fields { name args { name } type { kind name ofType { kind name ofType { kind name ofType { kind name } } } } } }
   }
 }
 """
@@ -216,6 +216,71 @@ def main() -> int:
         require(field in printlist_fields, f"Printlist missing field: {field}")
     warn("creationsBatch" in printlist_fields, "Printlist missing recent field: creationsBatch")
     warn("position" in printlist_fields, "Printlist missing field: position")
+
+    # Recent screenshot-backed additions (warning-level, introspection-only)
+
+    # myself -> bundlesBatch + state arg (screenshots 2026-07-13, 2026-07-16 12:55)
+    myself_field = query_fields.get("myself")
+    myself_type = unwrap_type(myself_field.get("type")) if myself_field else None
+    if myself_type:
+        myself_type_info = get_type(myself_type)
+        if myself_type_info is None:
+            warn(False, f"{myself_type} type could not be resolved")
+        else:
+            myself_fields = collect_fields(myself_type_info)
+            bundles_field = myself_fields.get("bundlesBatch")
+            if bundles_field:
+                bundles_args = {arg["name"] for arg in bundles_field.get("args", [])}
+                warn("state" in bundles_args, f"{myself_type}.bundlesBatch missing arg: state")
+            else:
+                warn(False, f"{myself_type} missing field: bundlesBatch")
+    else:
+        warn(False, "Could not resolve the type of myself")
+
+    # updateBundle + shown args (screenshot 2026-07-16 13:10)
+    update_bundle = mutation_fields.get("updateBundle")
+    warn(update_bundle is not None, "Missing mutation field: updateBundle")
+    if update_bundle:
+        update_bundle_args = {arg["name"] for arg in update_bundle.get("args", [])}
+        for arg in ["id", "name", "description", "discountPercentage", "state"]:
+            warn(arg in update_bundle_args, f"updateBundle missing arg: {arg}")
+
+    # categories.safe (screenshot 2026-05-18)
+    categories_args = {arg["name"] for arg in query_fields.get("categories", {}).get("args", [])}
+    warn("safe" in categories_args, "categories missing arg: safe")
+
+    # Creation.illustrations element fields (screenshot message date inferred as 2026-08-04)
+    illustrations_field = creation_fields.get("illustrations")
+    if illustrations_field:
+        illustration_type = unwrap_type(illustrations_field.get("type"))
+        if illustration_type:
+            illustration_type_info = get_type(illustration_type)
+            if illustration_type_info is None:
+                warn(False, f"{illustration_type} type could not be resolved")
+            else:
+                illustration_fields = collect_fields(illustration_type_info)
+                for field in ["id", "imageUrl"]:
+                    warn(field in illustration_fields, f"{illustration_type} missing field: {field}")
+        else:
+            warn(False, "Creation.illustrations element type could not be resolved")
+    else:
+        warn(False, "Creation missing field: illustrations")
+
+    # Creation.license.spdxId (screenshot 2026-07-30); resolve the nested type dynamically.
+    license_field = creation_fields.get("license")
+    if license_field:
+        license_type = unwrap_type(license_field.get("type"))
+        if license_type:
+            license_type_info = get_type(license_type)
+            if license_type_info is None:
+                warn(False, f"{license_type} type could not be resolved")
+            else:
+                license_fields = collect_fields(license_type_info)
+                warn("spdxId" in license_fields, f"{license_type} missing field: spdxId")
+        else:
+            warn(False, "Creation.license type could not be resolved")
+    else:
+        warn(False, "Creation missing field: license")
 
     if errors:
         print("Errors:")
